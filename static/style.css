@@ -1,0 +1,113 @@
+/* Background with moving RGB gradient */
+body {
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(270deg, #ff0080, #7928ca, #2af598, #00f260);
+  background-size: 800% 800%;
+  animation: gradientShift 20s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Glassmorphism container */
+.container {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 40px rgba(255,255,255,0.2);
+  width: 600px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Glowing title */
+.glow {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 10px #fff, 0 0 20px #00f, 0 0 40px #0ff;
+  animation: glowPulse 2s infinite alternate;
+}
+
+@keyframes glowPulse {
+  from { text-shadow: 0 0 10px #ff00ff, 0 0 20px #00f, 0 0 40px #0ff; }
+  to { text-shadow: 0 0 20px #0ff, 0 0 40px #ff0, 0 0 80px #f0f; }
+}
+
+/* Input + Button styling */
+.search-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.search-box input,
+.search-box select,
+.search-box button {
+  padding: 10px 15px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search-box input,
+.search-box select {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  backdrop-filter: blur(10px);
+}
+
+.search-box button {
+  background: linear-gradient(45deg, #ff00ff, #00ffff);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.search-box button:hover {
+  transform: scale(1.1);
+}
+
+/* Results card */
+.card {
+  background: rgba(255,255,255,0.15);
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 15px;
+  color: #fff;
+  animation: slideUp 1s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+}

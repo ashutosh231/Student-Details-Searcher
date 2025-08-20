@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student CGPA Search</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
+      color: #fff;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 30px;
+      width: 100%;
+      max-width: 1100px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 25px;
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    select, input, button {
+      padding: 12px 15px;
+      border-radius: 12px;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    select, input {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      min-width: 200px;
+    }
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    button {
+      background: linear-gradient(45deg, #4facfe, #00f2fe);
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+    }
+
+    button:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(0, 242, 254, 0.6);
+    }
+
+    /* Results Grid */
+    .results {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+      animation: fadeIn 0.6s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(79, 172, 254, 0.2), transparent 70%);
+      animation: rotateGlow 6s linear infinite;
+    }
+
+    @keyframes rotateGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 10px 35px rgba(79, 172, 254, 0.6);
+      border: 1px solid rgba(79, 172, 254, 0.6);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: #fff;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      margin: 5px 0;
+      color: #e0e0e0;
+      font-size: 0.95rem;
+    }
+
+    .card p b {
+      color: #fff;
+    }
+
+    .no-result {
+      text-align: center;
+      color: #bbb;
+      margin-top: 20px;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 Student CGPA Search</h1>
+    <form method="POST">
+      <select name="search_key" required>
+        <option value="Regd No.">Regd No.</option>
+        <option value="Name">Name</option>
+      </select>
+      <input type="text" name="search_value" placeholder="Enter search value..." required>
+      <button type="submit">Search</button>
+    </form>
+
+    {% if results %}
+      <div class="results">
+        {% for row in results %}
+          <div class="card">
+            <h3>{{ row["Name"] }} ({{ row["Regd No."] }})</h3>
+            <p><b>Father:</b> {{ row["Father Name"] }}</p>
+            <p><b>Mother:</b> {{ row["Mother Name"] }}</p>
+            <p><b>Program:</b> {{ row["Program"] }}</p>
+            <p><b>Section:</b> {{ row["Section"] }}</p>
+            <p><b>CGPA:</b> {{ row["Cgpa"] }}</p>
+            <p><b>Batch:</b> {{ row["BatchYear"] }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% elif results is not none %}
+      <p class="no-result">No results found</p>
+    {% endif %}
+  </div>
+</body>
+</html>
